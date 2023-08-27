@@ -6,6 +6,7 @@ const express = require('express')
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan')
+const authRoutes = require('./Routes/Auth/Auth')
 
 // Use these Codes If you want to dynamically generate Additional Tables as per your requirement
 
@@ -14,10 +15,15 @@ const morgan = require('morgan')
 
 // createAnyTable(CREATE_USERS_TABLE,"users")
 
+// Setup Nodemailer
+
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
+
+app.use("/api" , authRoutes)
 
 
 app.listen(port , () => {

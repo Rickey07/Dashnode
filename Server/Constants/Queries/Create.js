@@ -30,7 +30,7 @@ const CREATE_COMMENTS_TABLE = `
         parent_comment_id UUID
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
-`
+`;
 
 const CREATE_LIKES_TABLE = `
     CREATE TABLE IF NOT EXISTS likes (
@@ -39,7 +39,21 @@ const CREATE_LIKES_TABLE = `
         blog_id UUID REFERENCES blogs(id),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
-`
+`;
 
+const CREATE_VERIFICATION_CODES_TABLE = `
+    CREATE TABLE IF NOT EXISTS verificationcodes (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        email VARCHAR(255) NOT NULL,
+        code INT NOT NULL,
+        expiration_time INT NOT NULL
+    )
+`;
 
-module.exports = { CREATE_USERS_TABLE, CREATE_BLOGS_TABLE , CREATE_COMMENTS_TABLE , CREATE_LIKES_TABLE};
+module.exports = {
+  CREATE_USERS_TABLE,
+  CREATE_BLOGS_TABLE,
+  CREATE_COMMENTS_TABLE,
+  CREATE_LIKES_TABLE,
+  CREATE_VERIFICATION_CODES_TABLE,
+};

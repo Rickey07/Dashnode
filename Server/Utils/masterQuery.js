@@ -11,7 +11,7 @@ const masterQuery = (queryType,queryData,table) => {
     switch (queryType) {
         case "create":
             const columns = Object.keys(queryData)?.join(',');
-            const values = Object.values(queryData)?.join(',');
+            const values = Object.values(queryData)?.map((data) => dataTypeMapper(data))?.join(',')
             query = `INSERT INTO ${table} (${columns}) VALUES (${values}) RETURNING *`
             break;
         case "update":
@@ -19,7 +19,7 @@ const masterQuery = (queryType,queryData,table) => {
             query = `UPDATE ${table} SET ${data} WHERE id = ${data?.id} RETURNING *`;
             break
         case 'delete':
-            query = `DELETE FROM ${table} WHERE id = ${data?.id}`
+            query = `DELETE FROM ${table} WHERE ${data?.columnName} ${data?.operator} ${data?.columnValue}`
             break
         case "get":
             query = generateGetQuery(queryData,table)
@@ -40,7 +40,7 @@ const masterQuery = (queryType,queryData,table) => {
     }
 
     if(where) {
-        query+=` WHERE ${where}`
+        query+=` WHERE ${where.columnName}='${where.value}'`
     }
 
     if(order_by) {
@@ -53,3 +53,18 @@ const masterQuery = (queryType,queryData,table) => {
     return query
 
  }
+
+
+ function dataTypeMapper (data) {
+    const type = typeof data
+    switch (type) {
+        case "string":
+            return `'${data}'` 
+        default:
+            return data
+    }
+ }
+
+module.exports = {
+    masterQuery
+}
