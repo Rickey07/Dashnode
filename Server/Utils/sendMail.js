@@ -21,7 +21,7 @@ const sendMail = (email,data,subject,res) => {
         if(error) {
           return responseHandler(res,500,false,{},error)
         } else {
-            return responseHandler(res,200,true,{},"Verification Code has been sent to your email")
+            return responseHandler(res,200,true,{},"Registration Successful Verification Code has been sent to your email")
         }
     })
     

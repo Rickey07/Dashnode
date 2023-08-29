@@ -3,7 +3,7 @@
  * @param {*} queryType 
  * @param {*} queryData 
  * @param {*} table 
- * @returns A SQL query to according to given data.later we can execute the query through executeQuery Function then
+ * @returns A SQL query to according to given data.later we can execute the query through executeQuery Function.
  */
 
 const masterQuery = (queryType,queryData,table) => {
@@ -15,11 +15,11 @@ const masterQuery = (queryType,queryData,table) => {
             query = `INSERT INTO ${table} (${columns}) VALUES (${values}) RETURNING *`
             break;
         case "update":
-            const data = Object.entries(data)?.map(([column,value]) => `${column} = '${value}'`).join(', ')
-            query = `UPDATE ${table} SET ${data} WHERE id = ${data?.id} RETURNING *`;
+            const data = Object.entries(data?.dataForUpdate)?.map(([column,value]) => `${column} = '${value}'`).join(', ')
+            query = `UPDATE ${table} SET ${data} WHERE ${data?.conditions?.columnName} ${data?.conditions?.operator} ${data?.conditions?.value} RETURNING *`;
             break
         case 'delete':
-            query = `DELETE FROM ${table} WHERE ${data?.columnName} ${data?.operator} ${data?.columnValue}`
+            query = `DELETE FROM ${table} WHERE ${queryData?.columnName} ${queryData?.operator} ${queryData?.value}`
             break
         case "get":
             query = generateGetQuery(queryData,table)

@@ -25,6 +25,16 @@ class userModel {
             return error
         }
     }
+
+    async updateUser (queryData) {
+        try {
+            const query = masterQuery("update",queryData,"users")
+            const data = await executeQuery(query)
+            return data
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 module.exports = new userModel()

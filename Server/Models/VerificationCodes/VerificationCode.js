@@ -42,7 +42,7 @@ class verificationCodeModel {
                 operator:"<",
                 value:currentTime
             }
-            const query = masterQuery("delete",deletionData,"verificationcodes")
+            const query = masterQuery("delete",deletionData,"verificationcodes");
             const data = await executeQuery(query);
             return data
         } catch (error) {
