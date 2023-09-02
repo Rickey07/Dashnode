@@ -1,11 +1,13 @@
 const db = require('./connectToDb')
 
-async function executeQuery  (query) {
+async function executeQuery (query,paramterized=false,paramterizedValues) {
     try {
-        const data = await db.query(query)
+        const data = await (paramterized ? db.query(query,[...paramterizedValues]) : db.query(query))
+        console.log(data)
         return data?.rows
     } catch (error) {
-        return error.msg
+        console.log(error)
+        return error
     }
 }
 
