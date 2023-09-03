@@ -6,13 +6,15 @@
 
 const queryOperators = require("../Constants/Queries/queryOperators");
 const decodeData = require("./decodeData");
+const dataTypeMapper = require('../Utils/dataTypeMapper')
 
 const operatorValMapper = (operator, value) => {
+  // Check whether it is for Like Operator Or Not?
   const SQLOperator = queryOperators[operator?.toLowerCase()];
   const isLikeOperator = operator?.toLowerCase()?.includes("contains");
   return isLikeOperator
     ? `${SQLOperator} '%${value}%'`
-    : `${SQLOperator} ${value}`;
+    : `${SQLOperator} ${dataTypeMapper(value)}`;
 };
 
 const parseFilteringToQuery = (filteringClause,filtering) => {

@@ -6,6 +6,8 @@
  * @returns A SQL query to according to given data.later we can execute the query through executeQuery Function.
  */
 
+const dataTypeMapper = require('./dataTypeMapper')
+
 const masterQuery = (queryType, queryData, table, paramterized = false) => {
   let query = "";
   switch (queryType) {
@@ -68,15 +70,15 @@ function generateGetQuery(data, tableName) {
   return query;
 }
 
-function dataTypeMapper(data) {
-  const type = typeof data;
-  switch (type) {
-    case "string":
-      return `'${data}'`;
-    default:
-      return data;
-  }
-}
+// function dataTypeMapper(data) {
+//   const type = typeof data;
+//   switch (type) {
+//     case "string":
+//       return `'${data}'`;
+//     default:
+//       return data;
+//   }
+// }
 
 module.exports = {
   masterQuery,
