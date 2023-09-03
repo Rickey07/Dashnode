@@ -9,7 +9,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const authRoutes = require('./Routes/Auth/Auth');
 const blogRoutes = require('./Routes/Blogs/Blog');
-const likeRoutes = require('./Routes/Likes/Like')
+const likeRoutes = require('./Routes/Likes/Like');
+const commentRoutes = require('./Routes/Comments/Comment')
 
 
 // Use these Codes If you want to dynamically generate Additional Tables as per your requirement
@@ -32,6 +33,7 @@ scheduleJobs()
 app.use("/api" , authRoutes)
 app.use("/api" , blogRoutes)
 app.use("/api",likeRoutes)
+app.use('/api',commentRoutes)
 
 
 app.listen(port , () => {
