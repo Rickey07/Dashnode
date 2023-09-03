@@ -5,7 +5,20 @@ const responseHandler = require("../../Utils/responseHandler");
 class BlogsController {
   async getBlog(req, res) {
     try {
-    } catch (error) {}
+      const queryData = req.query
+      const result = await blogsModel.getBlogs(queryData)
+      if(result) {
+        return responseHandler(res,200,true,result)
+      }
+    } catch (error) {
+      return responseHandler(
+        res,
+        500,
+        false,
+        {},
+        "Internal Server Error Occured!"
+      );
+    }
   }
 
   async saveBlog(req, res) {

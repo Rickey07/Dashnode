@@ -3,6 +3,7 @@ const router = express.Router();
 const upload = require('../../Middlewares/Miscellaneous/uploadFile')
 const BlogController = require('../../Controllers/Blogs/Blog')
 
+router.get('/blogs',BlogController.getBlog); 
 router.post('/blogs/new',upload.single('post_image'),BlogController.saveBlog)
 router.delete('/blogs',BlogController.deleteBlog)
 router.patch('/blogs/update/:id',upload.single('post_image'),BlogController.updateBlog)
