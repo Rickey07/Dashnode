@@ -16,9 +16,18 @@ FROM likes AS l
 JOIN users AS u ON l.user_id = u.id
 `;
 
+const GET_ALL_COMMENTS = `
+SELECT 
+	c.content , c.created_at , c.author_id , 
+	c.parent_comment_id , u.username , u.profile_img
+FROM comments AS c
+JOIN users AS u ON u.id = c.author_id
+`
+
 const allGetQueries = {
     GET_ALL_BLOGS,
-    GET_ALL_LIKES
+    GET_ALL_LIKES,
+    GET_ALL_COMMENTS
 }
 
 
