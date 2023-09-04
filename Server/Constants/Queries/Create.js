@@ -57,6 +57,41 @@ const CREATE_CONNECTIONS_TABLE = `
         receiver_id UUID NOT NULL
         status VARCHAR(255) DEFAULT 'Pending'
     )
+`;
+
+const CREATE_CONVERSATIONS_TABLE = `
+    CREATE TABLE IF NOT EXISTS conversation (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        sender_id UUID NOT NULL,
+        receiver_id UUID NOT NULL
+    );
+`;
+
+const CREATE_CHAT_GROUPS_TABLE = `
+    CREATE TABLE IF NOT EXISTS chat_groups (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        name VARCHAR(255) NOT NULL,
+        profile_img VARCHAR(255),
+        admin UUID NOT NULL REFERENCES users(id)
+    );
+`
+
+const CREATE_CHAT_GROUPS_PARTICIPANTS_TABLE = `
+    CREATE TABLE IF NOT EXISTS Chat_Group_Participants (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        chat_group_id UUID NOT NULL REFERENCES chat_groups(id)
+    );
+`
+
+const CREATE_MESSAGES_TABLE = `
+    CREATE TABLE IF NOT EXISTS messages (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        conversation_id UUID NOT NULL REFERENCES conversation(id),
+        sender_id UUID NOT NULL,
+        reciever_id UUID NOT NULL,
+        content TEXT NOT NULL,
+        timestamp TIMESTAMPTZ DEFAULT NOW()
+    );
 `
 
 module.exports = {
@@ -65,5 +100,9 @@ module.exports = {
   CREATE_COMMENTS_TABLE,
   CREATE_LIKES_TABLE,
   CREATE_VERIFICATION_CODES_TABLE,
-  CREATE_CONNECTIONS_TABLE
+  CREATE_CONNECTIONS_TABLE,
+  CREATE_MESSAGES_TABLE,
+  CREATE_CHAT_GROUPS_PARTICIPANTS_TABLE,
+  CREATE_CHAT_GROUPS_TABLE,
+  CREATE_CONVERSATIONS_TABLE
 };

@@ -26,7 +26,7 @@ const parseFilteringToQuery = (filteringClause,filtering) => {
      const havingQuery =
         i === 0
           ? `${field_name} ${operatorValMapper(operator, value)}`
-          : `AND ${field_name} ${operatorValMapper(operator, value)}`;
+          : ` AND ${field_name} ${operatorValMapper(operator, value)}`;
       filteringQuery += havingQuery;
     }
   }

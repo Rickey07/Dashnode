@@ -7,7 +7,6 @@ LEFT JOIN users AS u ON b.user_id = u.id
 LEFT JOIN likes AS l ON l.blog_id = b.id
 GROUP BY b.id , u.id ,l.user_id`;
 
-
 const GET_ALL_LIKES = `
 SELECT 
 l.id , l.user_id , l.created_at , 
@@ -22,20 +21,26 @@ SELECT
 	c.parent_comment_id , u.username , u.profile_img
 FROM comments AS c
 JOIN users AS u ON u.id = c.author_id
-`
+`;
 
 const GET_ALL_CONNECTIONS = `
 SELECT c.id , c.status , u.username , u.profile_img , u.id , c.sender_id AS sender_id
 FROM connection AS c 
 JOIN users AS u ON c.receiver_id = u.id
-`
+`;
+
+const GET_ALL_CONVERSATIONS = `
+SELECT c.id , c.sender_id , u.username , u.id , profile_img
+FROM conversation AS c
+JOIN users AS u ON u.id = c.receiver_id
+`;
 
 const allGetQueries = {
-    GET_ALL_BLOGS,
-    GET_ALL_LIKES,
-    GET_ALL_COMMENTS,
-    GET_ALL_CONNECTIONS
-}
+  GET_ALL_BLOGS,
+  GET_ALL_LIKES,
+  GET_ALL_COMMENTS,
+  GET_ALL_CONNECTIONS,
+  GET_ALL_CONVERSATIONS
+};
 
-
-module.exports = allGetQueries
+module.exports = allGetQueries;
