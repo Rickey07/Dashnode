@@ -99,7 +99,7 @@ class AuthController {
           res,
           400,
           false,
-          updatedUser,
+          {},
           "No User Found with this email"
         );
       }

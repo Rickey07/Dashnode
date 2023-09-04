@@ -50,10 +50,20 @@ const CREATE_VERIFICATION_CODES_TABLE = `
     )
 `;
 
+const CREATE_CONNECTIONS_TABLE = `
+    CREATE TABLE IF NOT EXISTS connection (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        sender_id UUID NOT NULL
+        receiver_id UUID NOT NULL
+        status VARCHAR(255) DEFAULT 'Pending'
+    )
+`
+
 module.exports = {
   CREATE_USERS_TABLE,
   CREATE_BLOGS_TABLE,
   CREATE_COMMENTS_TABLE,
   CREATE_LIKES_TABLE,
   CREATE_VERIFICATION_CODES_TABLE,
+  CREATE_CONNECTIONS_TABLE
 };
