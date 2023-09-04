@@ -24,10 +24,17 @@ FROM comments AS c
 JOIN users AS u ON u.id = c.author_id
 `
 
+const GET_ALL_CONNECTIONS = `
+SELECT c.id , c.status , u.username , u.profile_img , u.id , c.sender_id AS sender_id
+FROM connection AS c 
+JOIN users AS u ON c.receiver_id = u.id
+`
+
 const allGetQueries = {
     GET_ALL_BLOGS,
     GET_ALL_LIKES,
-    GET_ALL_COMMENTS
+    GET_ALL_COMMENTS,
+    GET_ALL_CONNECTIONS
 }
 
 
