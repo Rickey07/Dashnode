@@ -11,7 +11,6 @@ class LikesController {
             let query = GET_ALL_LIKES
             if(filtering.length) {
                 const whereQuery = parseFilteringToQuery(` WHERE`,filtering)
-                console.log(whereQuery)
                 query+=whereQuery
             }
             const result = await Like.getLikes(query)

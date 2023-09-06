@@ -35,12 +35,30 @@ FROM conversation AS c
 JOIN users AS u ON u.id = c.receiver_id
 `;
 
+const GET_ALL_CHAT_GROUPS = `
+SELECT * FROM chat_groups
+`
+
+const GET_ALL_GROUP_PARTICIPANT = `
+SELECT p.id , u.username , u.profile_img , u.id , 
+p.chat_group_id AS chat_group_id
+FROM chat_group_participants AS p
+JOIN users AS u ON p.participant_id = u.id
+`
+
+const GET_ALL_MESSAGES = `
+  SELECT * FROM meessages;
+`
+
 const allGetQueries = {
   GET_ALL_BLOGS,
   GET_ALL_LIKES,
   GET_ALL_COMMENTS,
   GET_ALL_CONNECTIONS,
-  GET_ALL_CONVERSATIONS
+  GET_ALL_CONVERSATIONS,
+  GET_ALL_CHAT_GROUPS,
+  GET_ALL_GROUP_PARTICIPANT,
+  GET_ALL_MESSAGES
 };
 
 module.exports = allGetQueries;
